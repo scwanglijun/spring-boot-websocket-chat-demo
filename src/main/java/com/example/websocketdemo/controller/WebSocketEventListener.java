@@ -8,8 +8,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.messaging.SessionConnectedEvent;
-import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import org.springframework.web.socket.messaging.*;
 
 /**
  * Created by rajeevkumarsingh on 25/07/17.
@@ -22,9 +21,42 @@ public class WebSocketEventListener {
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
+
+    /**
+     * Name
+     * @param event
+     */
+    @EventListener
+    public void handleWebSocketConnectListener(SessionConnectEvent event) {
+        logger.info("SessionConnectEvent a new web socket connection:{}",event.toString());
+    }
+
+    /***
+     * 监听消息
+     * @param event
+     */
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
-        logger.info("Received a new web socket connection");
+        logger.info("Received a new web socket connection:{}",event.toString());
+    }
+
+
+    /***
+     * 订阅消息
+     * @param event
+     */
+    @EventListener
+    public void handleWebSocketSubscribeListener(SessionSubscribeEvent event){
+        logger.info("WebSocket Subscribe:{},user:{}",event.getMessage(),event.getUser());
+    }
+
+    /***
+     * 取消订阅消息
+     * @param event
+     */
+    @EventListener
+    public void handleWebSocketUnSubscribeListener(SessionUnsubscribeEvent event){
+        logger.info("WebSocket UnSubscribe:{},user:{}",event.getMessage(),event.getUser());
     }
 
     @EventListener

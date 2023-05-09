@@ -8,6 +8,8 @@ public class ChatMessage {
     private String content;
     private String sender;
 
+    private String to;
+
     public enum MessageType {
         CHAT,
         JOIN,
@@ -36,5 +38,23 @@ public class ChatMessage {
 
     public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" +
+                "type=" + type +
+                ", content='" + content + '\'' +
+                ", sender='" + sender + '\'' +
+                ", to='" + to + '\'' +
+                '}';
     }
 }
